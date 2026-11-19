@@ -1,29 +1,45 @@
 # CICD-1 Coding Test — Review, Improve and Reflect
 
-**Student ID:**  
-**Examination group:** A (Room Booking / JPQL) or B (OpenFeign):  
-**Original examination pull-request URL (`exam-work`):**  
-**New review repository URL:**  
+**Student ID:** G00467621  
+**Examination group:** B (OpenFeign):  
+**Original examination pull-request URL (`exam-work`):** https://github.com/SethATU/CICD_G00467621/pull/1
+**New review repository URL:** https://github.com/SethATU/CICD_Exam_Self_Assesment
 
 ## 1. My original examination self-assessment
 
-Review the code **as submitted in the original examination**. Do not change the original repository, branch or pull request. Check your own Group A or Group B examination paper and award marks only for evidence present in the original submission.
-
 ### Task 1 — /40
-**My mark:**  
-**Evidence from the original code (files, methods, working or missing requirements):**  
+**My mark:** 20/40
+**Evidence from the original code (files, methods, working or missing requirements):** 
+*Positive Marks*
+- model is created correctly with the getters and setters correct
+- most validation being correct and status is initally set to active
+*Negative Marks*
+- dto requests and responses not being correct at all, the request is 1/4 correct but their is no proper response 
 
 ### Task 2 — /40
-**My mark:**  
-**Evidence from the original code:**  
+**My mark:** 20/40
+**Evidence from the original code:** 
+*Positive Marks*
+- POST /api/bookings has a correct path to create and save a booking to the database
+- FerignClient is properly setup in the model and in the client to connect with the other service
+- sutable HTTP responses are setup for 201, 400 and 404
+*Negative Marks*
+- Ferign client dosent call the booking service
+- the attencance count is never checked
+- freign client calls /booking/{id} and returns a Booking, but it should call /api/rooms/{id} and return a room with id, name and capacity
 
 ### Task 3 — /20
-**My mark:**  
+**My mark:** 15/20
 **Evidence from the original code:**  
+*Positive Marks*
+- findById("id") reads using the local database not from feign
+- 404 not found and correct stats returned if id not found
+- booking not found message attached 
+*Negative Marks*
+- getById returns the Booking entity instead of response DTO
+- getBookings(@Param("id") Long id) is unused 
 
-**Total self-assessed original examination mark: /100**
-
-**Checkpoint:** Commit this completed self-assessment as the **first review commit in your new repository**, before you modify or add application code. The lecturer decides the official original examination mark.
+**Total self-assessed original examination mark:** 55/100
 
 ## 2. Corrections and improvements in my new project
 
