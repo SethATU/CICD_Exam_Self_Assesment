@@ -18,4 +18,8 @@ public record CreateBookingRequest(
         @NotNull(message = "Count is required")
         @Positive(message = "Count must be positive")
         Integer attendanceCount
-) {}
+) {
+    public @NotNull(message = "Count is required") @Positive(message = "Count must be positive") Integer attendanceCount() {
+        return null;
+    }
+}
