@@ -1,12 +1,13 @@
 package ie.atu.sample.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+@Setter
+@Getter
 @EnableFeignClients
 @Entity
 @Table(name = "bookings")
@@ -18,13 +19,15 @@ public class Booking {
     @NotEmpty
     @Min(2)
     @Max(60)
-    String orgName;
+    private String orgName;
 
     @Positive
-    Long attendanceCount;
+    private Long attendanceCount;
 
-    Long RoomId;
-    Boolean status;
+    @NotNull
+    private Long RoomId;
+
+    private Boolean status = true;
 
     public Booking() {}
 
@@ -36,18 +39,4 @@ public class Booking {
         this.status = status;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getOrgName() { return orgName; }
-    public void setOrgName(String orgName) { this.orgName = orgName; }
-
-    public Long getAttendanceCount() { return attendanceCount; }
-    public void setAttendanceCount(Long attendanceCount) { this.attendanceCount = attendanceCount; }
-
-    public Long getRoomId() { return RoomId; }
-    public void setRoomId(Long RoomId) { this.RoomId = RoomId; }
-
-    public Boolean getStatus() { return status; }
-    public void setStatus(Boolean status) { this.status = status; }
 }
