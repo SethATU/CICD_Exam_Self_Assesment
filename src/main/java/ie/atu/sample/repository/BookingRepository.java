@@ -8,9 +8,4 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    @Query("""
-    SELECT b
-    FROM Booking b
-    """)
-    List<Booking> getBookings(@Param("id") Long id);
 }

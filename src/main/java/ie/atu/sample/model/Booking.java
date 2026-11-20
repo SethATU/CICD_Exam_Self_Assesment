@@ -39,4 +39,7 @@ public class Booking {
         this.status = status;
     }
 
+    public void setAttendanceCount(@NotNull(message = "Count is required") @Positive(message = "Count must be positive") Integer integer) {
+        
+    }
 }

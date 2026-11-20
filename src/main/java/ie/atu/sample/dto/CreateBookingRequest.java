@@ -13,9 +13,9 @@ public record CreateBookingRequest(
 
         @NotBlank(message = "Org Name must cant blank")
         @Size(min = 2, max = 60, message = "Org Name must be between 2 and 60 characters")
-        String organiserName,
+        String orgName,
 
         @NotNull(message = "Count is required")
         @Positive(message = "Count must be positive")
-        Integer attendeeCount
+        Integer attendanceCount
 ) {}
