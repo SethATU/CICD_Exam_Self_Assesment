@@ -7,19 +7,15 @@ import jakarta.validation.constraints.Size;
 
 public record CreateBookingRequest(
 
-        @NotNull(message = "Room Id required")
-        @Positive(message = "room Id must be a positive")
+        @NotNull(message = "roomId is required")
+        @Positive(message = "roomId must be a positive number")
         Long roomId,
 
-        @NotBlank(message = "Org Name must cant blank")
-        @Size(min = 2, max = 60, message = "Org Name must be between 2 and 60 characters")
-        String orgName,
+        @NotBlank(message = "organiserName must not be blank")
+        @Size(min = 2, max = 60, message = "organiserName must be between 2 and 60 characters")
+        String organiserName,
 
-        @NotNull(message = "Count is required")
-        @Positive(message = "Count must be positive")
-        Integer attendanceCount
-) {
-    public @NotNull(message = "Count is required") @Positive(message = "Count must be positive") Integer attendanceCount() {
-        return null;
-    }
-}
+        @NotNull(message = "attendeeCount is required")
+        @Positive(message = "attendeeCount must be a positive whole number")
+        Integer attendeeCount
+) {}

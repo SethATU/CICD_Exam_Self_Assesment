@@ -23,7 +23,7 @@ public class BookingController {
         return bookingService.createBooking(request);
     }
     @GetMapping
-    public List<Booking> getAllBookings() {
+    public List<BookingResponse> getAllBookings() {
         return bookingService.getAllBookings();
     }
     @GetMapping("/{id}")

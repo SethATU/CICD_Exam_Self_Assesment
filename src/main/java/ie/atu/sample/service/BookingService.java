@@ -1,6 +1,6 @@
 package ie.atu.sample.service;
 
-import feign.Client;
+import feign.FeignException;
 import ie.atu.sample.client.RoomClient;
 import ie.atu.sample.dto.BookingResponse;
 import ie.atu.sample.dto.CreateBookingRequest;
@@ -24,20 +24,21 @@ public class BookingService {
 
     public BookingResponse createBooking(CreateBookingRequest request) {
         RoomDto room = getRoom(request.roomId());
-        if (request.attendanceCount() > room.capacity()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Attendee count greater than room capacity");
+
+        if (request.attendeeCount() > room.capacity()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Attendee count exceeds the capacity of room");
         }
 
         Booking booking = new Booking();
-        booking.setOrgName(request.orgName());
-        booking.setAttendanceCount(request.attendanceCount());
+        booking.setOrganiserName(request.organiserName());
+        booking.setAttendeeCount(request.attendeeCount());
         booking.setRoomId(request.roomId());
         booking.setStatus(true);
         return toResponse(bookingRepository.save(booking));
     }
 
-    public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+    public List<BookingResponse> getAllBookings() {
+        return bookingRepository.findAll().stream().map(this::toResponse).toList();
     }
 
     public Booking getById(Long id) {
@@ -45,14 +46,18 @@ public class BookingService {
     }
 
     private RoomDto getRoom(Long roomId) {
-        return roomClient.getRoomById(roomId);
+        try {
+            return roomClient.getRoomById(roomId);
+        } catch (FeignException.NotFound e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Room not found");
+        }
     }
 
     private BookingResponse toResponse(Booking b) {
         return new BookingResponse(
             b.getId(),
-            b.getOrgName(),
-            b.getAttendanceCount(),
+            b.getOrganiserName(),
+            b.getAttendeeCount(),
             b.getRoomId(),
             b.getStatus());
     }
